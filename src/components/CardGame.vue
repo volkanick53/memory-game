@@ -14,15 +14,9 @@
 </template>
 
 <script>
-import AddCards from "./AddCards.vue";
-import HighScore from "./HighScore.vue";
-import SpanishCards from "./SpanishCards.vue";
+
 export default {
-  components: {
-    AddCards,
-    HighScore,
-    SpanishCards
-  },
+  
   data() {
     return {
       detailsAreVisible: false,

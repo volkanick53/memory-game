@@ -1,5 +1,6 @@
 <template>
   <h1>Memory Card Game </h1>
+  
   <the-navigation></the-navigation>
   <div class="container">
     <div>
@@ -10,11 +11,11 @@
 </template>
 
 <script>
-import TheNavigation from "./components/TheNavigation.vue";
+
 export default {
   name: "App",
   components: {
-    TheNavigation,
+    
     
   },
 };
@@ -27,7 +28,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  
   
 }
 

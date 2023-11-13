@@ -3,19 +3,22 @@
     <form @submit="submitData">
       <div>
         <label>Spanish Word</label>
-        <input type="text" v-model="enteredSpanish" />
+        <input type="text" v-model="formData.enteredSpanish" />
       </div>
       <div>
         <label>English Word</label>
-        <input type="text" v-model="enteredEnglish" />
+        <input type="text" v-model="formData.enteredEnglish" />
       </div>
 
       <base-button>Add Word</base-button>
+      
     </form>
   </base-card>
 </template>
 <script>
-import axios from "axios";
+import { getDatabase, ref, set, push } from "firebase/database";
+import {  getAuth  } from 'firebase/auth';
+
 export default {
   data() {
     return {
@@ -27,17 +30,39 @@ export default {
   },
 
   methods: {
-    submitData() {
-      axios.post(
-        "https://memory-game-894da-default-rtdb.europe-west1.firebasedatabase.app/words.json",
-        {
-          spanish: this.enteredSpanish,
-          english: this.enteredEnglish,
-        }
-      );
+    async submitData(e) {
+      e.preventDefault();
+      const auth = getAuth();
+      const english = this.formData.enteredEnglish;
+      const spanish = this.formData.enteredSpanish;
+      const db = getDatabase();
+      const itemRef = ref(db, "words");
+      const addedItem = await push(itemRef);
+
+      if (!auth.currentUser){
+        window.alert("You need to be logged in to add words")
+      }
+      else {
+
+        set(addedItem, {
+          ...{
+            english: english,
+            spanish: spanish,
+          },
+        });
+        
+      }
+      
+
+
+
       this.formData.enteredSpanish = "";
       this.formData.enteredEnglish = "";
+      
     },
+   
   },
+ 
+  
 };
 </script>

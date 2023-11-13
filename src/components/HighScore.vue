@@ -1,8 +1,15 @@
 <template>
   <div>
-    <h2>HighScores</h2>
+    <div class="title">
+      <h2>Players</h2>
+      <hr />
+      <h2>HighScores</h2>
+    </div>
     <ul v-for="point in points" :key="point.id">
       <ul>
+        {{
+          point.user
+        }}
         {{
           point.score
         }}
@@ -37,3 +44,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.title {
+  display: flex;
+}
+</style>

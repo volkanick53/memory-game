@@ -18,7 +18,7 @@ export default {
   props: ["englishWord", "point"],
   methods: {
     closeModal() {
-      window.location.reload(); // Emit an event to indicate closing the modal
+      window.location.reload(); 
     },
   },
 };

@@ -20,12 +20,13 @@
 
 <script>
 import axios from "axios";
-import TheModal from "./TheModal.vue";
+import { getDatabase, ref, set, push } from "firebase/database";
+import {  getAuth  } from 'firebase/auth';
+
+
 
 export default {
-  components: {
-    TheModal,
-  },
+  
   data() {
     return {
       words: [],
@@ -35,6 +36,7 @@ export default {
       enteredWord: "",
       point: 0,
       isModalVisible: false,
+      auth: getAuth()
     };
   },
   methods: {
@@ -61,33 +63,40 @@ export default {
     },
 
     checkAnswer() {
-      this.enteredWord = this.inputValue;
-      if (this.enteredWord === this.englishWord) {
-        this.point++;
+      if (!this.auth.currentUser){
+        window.alert("You need to be logged in to play")
+      } else{
 
-        this.showRandomWord();
-        if (this.words.length === 0) {
+        this.enteredWord = this.inputValue;
+        if (this.enteredWord === this.englishWord) {
+          this.point++;
+  
+          this.showRandomWord();
+          if (this.words.length === 0) {
+            this.postScoreToDatabase(this.point);
+          }
+        } else {
           this.postScoreToDatabase(this.point);
+          this.isModalVisible = true;
         }
-      } else {
-        //post scores to database with different branch
-        this.postScoreToDatabase(this.point);
-        this.isModalVisible = true;
       }
     },
-    async postScoreToDatabase(score) {
-      const scorePost =
-        "https://memory-game-894da-default-rtdb.europe-west1.firebasedatabase.app/scores.json";
-
-      try {
-        await axios.post(scorePost, { score });
-      } catch (error) {
-        console.error("Error posting score:", error);
-      }
+    async postScoreToDatabase() {
+      const db = getDatabase();
+      
+      const itemRef = ref(db, "scores");
+      const addedScore = await push(itemRef);
+      
+      set(addedScore, {
+        ...{
+          score: this.point,
+          user: this.auth.currentUser.email
+        },
+      });
     },
   },
   created() {
-    this.fetchWords(); // Fetch words when the component is created
+    this.fetchWords(); 
   },
   provide() {
     return {
