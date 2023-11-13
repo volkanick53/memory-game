@@ -1,5 +1,8 @@
 # memory-game
-
+# Description
+```
+Basic word memory game for helping me to learn spanish. İt lacks of css and design etc. but it gets the job done.
+```
 ## Project setup
 ```
 npm install
