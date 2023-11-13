@@ -1,7 +1,7 @@
 <template>
     <div>
       <h2>Login</h2>
-      <p>Need an account? <router-link to="/signup"><button>Sign Up</button></router-link></p>
+      <p>Don't have a account? <router-link to="/signup"><button>Sign Up</button></router-link></p>
       <p><input type="text" placeholder="email" v-model="email" /></p>
       <p><input type="password" placeholder="password" v-model="password" /></p>
       <p><button @click="register">Log in</button></p>
