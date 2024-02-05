@@ -3,7 +3,7 @@
     <div class="title">
       <h2>Players</h2>
       <hr />
-      <h2>HighScores</h2>
+      <h2>High Scores</h2>
     </div>
     <ul v-for="point in points" :key="point.id">
       <ul>

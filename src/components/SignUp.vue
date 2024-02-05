@@ -26,11 +26,11 @@ const register = () => {
   const auth = getAuth();
   createUserWithEmailAndPassword(auth, email.value, password.value)
     .then(() => {
-      console.log(auth.currentUser);
+      
       router.push("/cardgame");
     })
     .catch((error) => {
-      console.log(error.code);
+      
       alert(error.message);
     });
 };

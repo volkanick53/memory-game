@@ -30,11 +30,11 @@ const register = () => {
   const auth = getAuth();
   signInWithEmailAndPassword(auth, email.value, password.value)
     .then(() => {
-      console.log(auth.currentUser);
+      
       router.push("/cardgame");
     })
     .catch((error) => {
-      console.log(error.code);
+      
       alert(error.message);
     });
 };
@@ -42,7 +42,7 @@ const registerWithGoogle = () => {
   const auth = getAuth();
   const provider = new GoogleAuthProvider();
   signInWithPopup(auth, provider).then(() => {
-    console.log(auth.currentUser.email);
+    
     router.push("/cardgame");
   });
 };
